@@ -2,10 +2,11 @@
 
 namespace App\Cats;
 
-use Native\Laravel\Facades\Menu;
+use Native\Laravel\Facades\Menu; 
 use Native\Laravel\Facades\Window;
-
 use Illuminate\Support\Str;
+
+use App\Models\Application;
 
 class MainMenu
 {
@@ -13,18 +14,20 @@ class MainMenu
 	{
 		$menu = [];
 
-		$menu[] = Menu::label('Add Site');
+		$menu[] = Menu::route('applications')->label('Applications/Sites')->id('applications');
         $menu[] = Menu::separator();
+		// $menu[] = Menu::route('application_add')->label('Add Application')->id('application_add');
 
-        for ($i = 0; $i < 4; $i++) {
-			$menu[] = Menu::label(Str::random(8));
+
+        foreach (Application::select()->orderBy('name')->with('services')->get() as $app) {
+			$menu[] = Menu::label($app->name);
 		}
 
         $menu[] = Menu::separator();
         $menu[] = Menu::label(time());
         $menu[] = Menu::link('https://github.com/ryanlovett-au/cats', 'About Cats')
                 ->openInBrowser();
-        $menu[] = Menu::quit();
+        $menu[] = Menu::quit()->label('Quit');
 
 		return Menu::make(...$menu);
 	}
@@ -33,8 +36,8 @@ class MainMenu
 	{
 		// $menu = new MenuBuilder(Menu::make());
 
-		foreach (['One', 'Two', 'Three'] as $item) {
-			$menu[] = Menu::label($item);
+		foreach (Application::select()->orderBy('name')->with('services')->get() as $app) {
+			$menu[] = Menu::label($app->name);
 		}
 
 		return Menu::make(...$menu);

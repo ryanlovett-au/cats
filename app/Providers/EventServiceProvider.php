@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
-use App\Listeners\MenuBarClickedListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+
 use Native\Laravel\Events\MenuBar\MenuBarClicked;
+use Native\Laravel\Events\Menu\MenuItemClicked;
+
+use App\Listeners\MenuBarClickedListener;
+use App\Listeners\MenuItemClickedListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         MenuBarClicked::class => [
             MenubarClickedListener::class,
+        ],
+
+        MenuItemClicked::class => [
+            MenuItemClickedListener::class,
         ],
     ];
 

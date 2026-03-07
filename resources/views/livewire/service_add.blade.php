@@ -3,6 +3,9 @@
 use Livewire\Volt\Component;
 
 use Native\Laravel\Dialog;
+use Native\Laravel\Facades\Window;
+
+use App\Models\Application;
 
 new class extends Component
 {
@@ -11,7 +14,7 @@ new class extends Component
     public string $path;
 
     public function error(): bool {
-        return (empty($name) || empty($path));
+        return (empty($this->name) || empty($this->path));
     }
 
     public function back() {
@@ -19,7 +22,13 @@ new class extends Component
     }
 
     public function save() {
-        
+        $application = new Application;
+        $application->name = $this->name;
+        $application->path = $this->path;
+        $application->save();
+
+        // Window::close('applications');
+        return redirect()->route('applications');
     }
 
     public function find_path(): void {
@@ -45,7 +54,7 @@ new class extends Component
         Add Application/Site
     </h3>
 
-    <div class="text-center px-10 my-4">Please enter the name of your application/site and select a folder that represents the path for the applicaiton/site. Service commands will be run in the context of this path.</div>
+    <div class="text-center px-10 my-4">Please enter the name of your application/site and select a folder that contains the applicaiton/site command executables. Service commands will be run in the context of this path. You will be able to define services in the next step.</div>
     
 
     <form wire:submit="save" class="mt-8 mx-4">

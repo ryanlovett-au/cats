@@ -25,7 +25,7 @@ new class extends Component {
 
         <div class="w-full border-1 border-gray-300 rounded-lg text-sm bg-[#e7e9eb] dark:bg-[#303236]">
             @foreach($this->applications as $app)
-                <div class="px-4 py-3 flex justify-between active:bg-gray-300" wire:click="click('application', $app->id)" wire:navigate>
+                <div class="px-4 py-3 flex justify-between active:bg-gray-300" wire:click="click('services', {{ $app->id }})" wire:navigate>
                     <div class="">{{ $app->name }}</div>
                     <div class="flex">
                         <div class="w-5 mr-4 rounded-lg bg-blue-400 text-white text-bold text-center pt-[2px] text-xs cursor-default select-none">{{ $app->services->count() }}</div>
@@ -39,7 +39,7 @@ new class extends Component {
             @endforeach 
         </div>
 
-        <div class="bg-white dark:text-slate-800 w-32 font-medium ml-auto mt-4 py-1 px-2 text-xs border-1 border-gray-300 rounded-lg shadow-xs text-center cursor-default active:bg-gray-200 select-none" wire:click="click('application_add')" wire:navigate>Add Application...</div>
+        <div class="bg-white dark:text-slate-800 w-32 font-medium ml-auto mt-4 py-1 px-2 text-xs border-1 border-gray-300 rounded-lg shadow-xs text-center cursor-default active:bg-gray-200 select-none" wire:click="click('application', 'add')" wire:navigate>Add Application...</div>
 
     </div>
 </div>

@@ -22,13 +22,13 @@ class MenuItemClickedListener
                     ->rememberState();
                 break;
 
-            case 'application_add':
-                Window::open('add')
-                    ->route('application_add')
-                    ->title('Cats - Add Application')
-                    ->rememberState()
-                    ->position(100, 100);
-                break;
+            // case 'application_edit':
+            //     Window::open('add')
+            //         ->route('application_edit')
+            //         ->title('Cats - Add Application')
+            //         ->rememberState()
+            //         ->position(100, 100);
+            //     break;
         }
     }
 }

@@ -16,8 +16,7 @@ class MainMenu
 
 		$menu[] = Menu::route('applications')->label('Applications/Sites')->id('applications');
         $menu[] = Menu::separator();
-		// $menu[] = Menu::route('application_add')->label('Add Application')->id('application_add');
-
+		// $menu[] = Menu::route('application_edit')->label('Add Application')->id('application_add');
 
         foreach (Application::select()->orderBy('name')->with('services')->get() as $app) {
 			$menu[] = Menu::label($app->name);

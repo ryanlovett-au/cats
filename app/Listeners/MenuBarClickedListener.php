@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use Illuminate\Support\Facades\Log;
 use Native\Laravel\Events\MenuBar\MenuBarClicked;
 use Native\Laravel\Facades\MenuBar;
 
@@ -11,8 +12,14 @@ class MenuBarClickedListener
 {
     public function __construct() {}
 
-    public function handle(MenuBarClicked $event): void 
+    public function handle(MenuBarClicked $event): void
     {
-        MenuBar::ContextMenu(MainMenu::show());
+        try {
+            MenuBar::contextMenu(MainMenu::show());
+        } catch (\Throwable $e) {
+            Log::error('Failed to build menu: ' . $e->getMessage(), [
+                'trace' => $e->getTraceAsString(),
+            ]);
+        }
     }
 }

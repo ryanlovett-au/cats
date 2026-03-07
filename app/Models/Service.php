@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model
 {
+    protected $fillable = ['application_id', 'name', 'command', 'auto_start'];
+
+    protected $casts = [
+        'auto_start' => 'boolean',
+    ];
+
     public function application(): BelongsTo
     {
-        return $this->BelongsTo(Application::class);
+        return $this->belongsTo(Application::class);
     }
 }

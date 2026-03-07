@@ -5,7 +5,6 @@ namespace App\Providers;
 use Native\Laravel\Contracts\ProvidesPhpIni;
 use Native\Laravel\Facades\MenuBar;
 
-use App\Cats\MainMenu;
 use App\Cats\ServiceManager;
 
 class NativeAppServiceProvider implements ProvidesPhpIni
@@ -13,9 +12,13 @@ class NativeAppServiceProvider implements ProvidesPhpIni
     public function boot(): void
     {
         MenuBar::create()
-            ->withContextMenu(MainMenu::show())
-            ->onlyShowContextMenu()
-            ->icon(storage_path('app/menuBarIconTemplate.png'));
+            ->route('menu')
+            ->icon(storage_path('app/menuBarIconTemplate.png'))
+            ->width(280)
+            ->height(600)
+            ->blendBackgroundBehindWindow()
+            ->resizable(false)
+            ->alwaysOnTop();
 
         app(ServiceManager::class)->startAutoStartServices();
     }

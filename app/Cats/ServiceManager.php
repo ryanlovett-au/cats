@@ -76,14 +76,28 @@ class ServiceManager
     {
         $home = getenv('HOME') ?: posix_getpwuid(posix_getuid())['dir'];
 
-        $extraPaths = array_filter([
+        // Find Herd's NVM node bin (npm, node, npx live here)
+        $herdNvmBase = $home . '/Library/Application Support/Herd/config/nvm/versions/node';
+        $herdNodeBin = null;
+        if (is_dir($herdNvmBase)) {
+            $versions = @scandir($herdNvmBase, SCANDIR_SORT_DESCENDING);
+            foreach ($versions ?: [] as $v) {
+                if ($v[0] === 'v' && is_dir("$herdNvmBase/$v/bin")) {
+                    $herdNodeBin = "$herdNvmBase/$v/bin";
+                    break;
+                }
+            }
+        }
+
+        $extraPaths = array_filter(array_filter([
             '/opt/homebrew/bin',
             '/opt/homebrew/sbin',
             '/usr/local/bin',
             $home . '/Library/Application Support/Herd/bin',
+            $herdNodeBin,
             $home . '/.config/herd-lite/bin',
             $home . '/.composer/vendor/bin',
-        ], 'is_dir');
+        ]), 'is_dir');
 
         $currentPath = getenv('PATH') ?: '/usr/bin:/bin:/usr/sbin:/sbin';
 

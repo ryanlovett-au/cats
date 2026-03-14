@@ -34,6 +34,7 @@ class ServiceManager
             cmd: ['sh', '-c', $cmd],
             alias: $alias,
             cwd: $service->application->path,
+            env: $this->processEnv(),
         );
     }
 
@@ -69,6 +70,27 @@ class ServiceManager
         if (file_exists($path)) {
             file_put_contents($path, '');
         }
+    }
+
+    protected function processEnv(): array
+    {
+        $home = getenv('HOME') ?: posix_getpwuid(posix_getuid())['dir'];
+
+        $extraPaths = array_filter([
+            '/opt/homebrew/bin',
+            '/opt/homebrew/sbin',
+            '/usr/local/bin',
+            $home . '/Library/Application Support/Herd/bin',
+            $home . '/.config/herd-lite/bin',
+            $home . '/.composer/vendor/bin',
+        ], 'is_dir');
+
+        $currentPath = getenv('PATH') ?: '/usr/bin:/bin:/usr/sbin:/sbin';
+
+        return [
+            'PATH' => implode(':', [...$extraPaths, $currentPath]),
+            'HOME' => $home,
+        ];
     }
 
     public function startAutoStartServices(): void

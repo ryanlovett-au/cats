@@ -42,6 +42,13 @@ return [
             'synchronous' => null,
         ],
 
+        'nativephp' => [
+            'driver' => 'sqlite',
+            'database' => database_path('nativephp.sqlite'),
+            'prefix' => '',
+            'foreign_key_constraints' => true,
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),

@@ -13,12 +13,11 @@ class NativeAppServiceProvider implements ProvidesPhpIni
     {
         MenuBar::create()
             ->route('menu')
-            ->icon(storage_path('app/menuBarIconTemplate.png'))
-            ->width(280)
+            ->icon(public_path('menuBarIconTemplate.png'))
+            ->width(600)
             ->height(600)
             ->blendBackgroundBehindWindow()
-            ->resizable(false)
-            ->alwaysOnTop();
+            ->resizable(false);
 
         app(ServiceManager::class)->startAutoStartServices();
     }

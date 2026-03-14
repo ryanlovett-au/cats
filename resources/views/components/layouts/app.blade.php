@@ -10,7 +10,7 @@
 
         @livewireStyles
     </head>
-    <body class="min-h-screen p-4 bg-[#ebedf0] dark:bg-[#272b30]">
+    <body class="p-4 bg-transparent">
 
         {{ $slot }}
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Application extends Model
 {
-    protected $fillable = ['name', 'path', 'emoji'];
+    protected $fillable = ['name', 'path', 'sort_order'];
 
     public function services(): HasMany
     {

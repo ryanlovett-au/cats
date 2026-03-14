@@ -20,3 +20,7 @@ Homestead.json
 .DS_Store
 
 /dist/
+
+public/build/assets/
+
+public/build/

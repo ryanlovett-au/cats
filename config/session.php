@@ -32,7 +32,11 @@ return [
     |
     */
 
-    'lifetime' => (int) env('SESSION_LIFETIME', 120),
+    // Long default: this is a single-user local menu bar app, and a short
+    // lifetime causes Livewire's wire:poll to hit 419 after the machine
+    // wakes from a long sleep. One year keeps the session alive across
+    // realistic sleep/wake cycles.
+    'lifetime' => (int) env('SESSION_LIFETIME', 525600),
 
     'expire_on_close' => env('SESSION_EXPIRE_ON_CLOSE', false),
 

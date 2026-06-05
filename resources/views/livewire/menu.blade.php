@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use App\Cats\ServiceManager;
 use App\Models\Application;
 use App\Models\Service;
+use Native\Laravel\Client\Client;
 use Native\Laravel\Facades\MenuBar;
 use Native\Laravel\Facades\Shell;
 use Native\Laravel\Facades\Window;
@@ -109,6 +110,13 @@ new class extends Component {
 
     public function openAbout() {
         Shell::openExternal('https://github.com/ryanlovett-au/cats');
+    }
+
+    public function closeWindow() {
+        // Workaround: NativePHP's MenuBar::hide() posts to `menu-bar/close`,
+        // but the Electron side only exposes `menu-bar/hide`, so the facade
+        // call silently 404s. Hit the correct endpoint directly.
+        app(Client::class)->post('menu-bar/hide');
     }
 
     public function quit() {
@@ -283,9 +291,15 @@ new class extends Component {
             class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-slate-800 hover:border-slate-400 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:border-gray-400 shadow-sm transition-colors">
             About Cats
         </button>
-        <button wire:click="quit" wire:confirm="All running services will be stopped. Are you sure?"
-            class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-red-500 hover:border-red-300 dark:text-gray-300 dark:hover:text-red-400 dark:hover:border-red-500/50 shadow-sm transition-colors">
-            Quit
-        </button>
+        <div class="flex items-center gap-2">
+            <button wire:click="closeWindow"
+                class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-slate-800 hover:border-slate-400 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:border-gray-400 shadow-sm transition-colors">
+                Close
+            </button>
+            <button wire:click="quit" wire:confirm="All running services will be stopped. Are you sure?"
+                class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-red-500 hover:border-red-300 dark:text-gray-300 dark:hover:text-red-400 dark:hover:border-red-500/50 shadow-sm transition-colors">
+                Quit
+            </button>
+        </div>
     </div>
 </div>

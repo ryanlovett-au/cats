@@ -38,9 +38,11 @@ new class extends Component {
     public function start() {
         $manager = app(ServiceManager::class);
         $path = $manager->logPath($this->service);
-        file_put_contents($path, "\n", FILE_APPEND);
+        $timestamp = now()->format('Y-m-d H:i:s');
+        file_put_contents($path, "\n\e[32m[{$timestamp}] Process started.\e[0m\n", FILE_APPEND);
         $manager->start($this->service);
         $this->running = $manager->isRunning($this->service);
+        $this->refreshLog();
     }
 
     public function stop() {
@@ -56,8 +58,12 @@ new class extends Component {
 
     public function restart() {
         $manager = app(ServiceManager::class);
+        $path = $manager->logPath($this->service);
+        $timestamp = now()->format('Y-m-d H:i:s');
+        file_put_contents($path, "\n\e[36m[{$timestamp}] Process restarted.\e[0m\n", FILE_APPEND);
         $manager->restart($this->service);
         $this->running = $manager->isRunning($this->service);
+        $this->refreshLog();
     }
 };
 

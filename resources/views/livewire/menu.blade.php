@@ -90,6 +90,19 @@ new class extends Component {
         MenuBar::show();
     }
 
+    public function viewAllLogs(int $appId) {
+        $app = Application::with('services')->findOrFail($appId);
+        foreach ($app->services as $service) {
+            Window::open("log-{$service->id}")
+                ->route('log', ['id' => $service->id])
+                ->title("Cats - {$service->name}")
+                ->width(700)
+                ->height(500)
+                ->rememberState();
+        }
+        MenuBar::show();
+    }
+
     public function addApplication() {
         Window::open('application')
             ->route('application', ['id' => 'add'])
@@ -181,6 +194,17 @@ new class extends Component {
                                 title="Move down">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3">
                                     <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        @endif
+
+                        {{-- Open all logs --}}
+                        @if($app->services->isNotEmpty())
+                            <button wire:click="viewAllLogs({{ $app->id }})"
+                                class="w-6 h-6 flex items-center justify-center rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-500 hover:text-slate-700 hover:border-slate-400 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-400 transition-colors"
+                                title="Open all logs">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
+                                    <path d="M7 3a1 1 0 0 0-1 1v1H4.5A1.5 1.5 0 0 0 3 6.5v9A1.5 1.5 0 0 0 4.5 17h7a1.5 1.5 0 0 0 1.5-1.5V14h1.5a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2H8a1 1 0 0 0-1 1Zm.25 4.5a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75Zm0 3a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75Z" />
                                 </svg>
                             </button>
                         @endif

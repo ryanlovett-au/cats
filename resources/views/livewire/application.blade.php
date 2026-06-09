@@ -94,6 +94,8 @@ new class extends Component {
             'auto_start' => false,
             'isNew'      => true,
         ];
+
+        $this->dispatch('service-added');
     }
 
     public function saveService(int $index): void {
@@ -237,7 +239,14 @@ new class extends Component {
         </div>
 
         {{-- Services list --}}
-        <div class="services-scroll flex flex-col gap-2 overflow-y-auto flex-1 pb-1">
+        <div class="services-scroll flex flex-col gap-2 overflow-y-auto flex-1 pb-1"
+            x-data
+            @service-added.window="$nextTick(() => {
+                $el.scrollTo({ top: $el.scrollHeight, behavior: 'smooth' });
+                const rows = $el.children;
+                const lastRow = rows[rows.length - 1];
+                lastRow?.querySelector('input[type=text]')?.focus();
+            })">
             @if(empty($services))
                 <div class="flex items-center justify-center py-6 rounded-xl border border-dashed border-gray-300/60 dark:border-gray-500/40">
                     <p class="text-xs text-slate-400 dark:text-gray-500">

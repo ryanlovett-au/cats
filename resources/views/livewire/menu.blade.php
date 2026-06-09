@@ -229,7 +229,12 @@ new class extends Component {
 
                                         {{-- Restart (blue when enabled) --}}
                                         <button wire:click="restart({{ $service->id }})"
-                                            class="w-6 h-6 flex items-center justify-center rounded-full bg-blue-50 text-blue-500 hover:bg-blue-100 border border-blue-200 dark:bg-blue-500/10 dark:border-blue-500/30 dark:hover:bg-blue-500/20 transition-colors"
+                                            x-data="{ flashed: false }"
+                                            @click="flashed = true; setTimeout(() => flashed = false, 700)"
+                                            :class="flashed
+                                                ? 'bg-blue-500 text-white border-blue-500 dark:bg-blue-500 dark:border-blue-500'
+                                                : 'bg-blue-50 text-blue-500 hover:bg-blue-100 border-blue-200 dark:bg-blue-500/10 dark:border-blue-500/30 dark:hover:bg-blue-500/20'"
+                                            class="w-6 h-6 flex items-center justify-center rounded-full border transition-colors duration-200"
                                             title="Restart">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                                 <path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H4.598a.75.75 0 0 0-.75.75v3.634a.75.75 0 0 0 1.5 0v-2.033l.312.311a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm-1.262-5.273a7 7 0 0 0-11.712 3.138.75.75 0 0 0 1.449.39 5.5 5.5 0 0 1 9.201-2.466l.312.311H11.867a.75.75 0 0 0 0 1.5h3.634a.75.75 0 0 0 .75-.75V4.64a.75.75 0 0 0-1.5 0v2.033l-.312-.311a6.972 6.972 0 0 0-.389-.211Z" clip-rule="evenodd" />

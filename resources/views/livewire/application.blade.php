@@ -158,7 +158,12 @@ new class extends Component {
             {{ $isNewApp ? 'Add Application' : 'Edit Application' }}
         </h1>
         <button wire:click="close"
-            class="w-6 h-6 flex items-center justify-center rounded-full bg-white/70 dark:bg-white/10 border border-gray-300/60 dark:border-gray-500/40 text-slate-400 hover:text-slate-600 dark:hover:text-gray-200 transition-colors"
+            x-data="{ flashed: false }"
+            @click="flashed = true"
+            :class="flashed
+                ? 'bg-red-500 text-white border-red-500'
+                : 'bg-white/70 dark:bg-white/10 border-gray-300/60 dark:border-gray-500/40 text-slate-400 hover:text-slate-600 dark:hover:text-gray-200'"
+            class="w-6 h-6 flex items-center justify-center rounded-full border transition-colors duration-150"
             title="Close">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                 <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
@@ -206,7 +211,10 @@ new class extends Component {
             <button type="button"
                 wire:click="saveApp"
                 @if($this->appError()) disabled @endif
-                class="text-xs font-medium px-3 py-1 rounded-lg bg-[#007AFF] text-white hover:bg-[#0063CC] active:bg-[#004EA3] disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm">
+                x-data="{ flashed: false }"
+                @click="if (!$el.disabled) { flashed = true; setTimeout(() => flashed = false, 700) }"
+                :class="flashed ? 'bg-green-500 hover:bg-green-500' : 'bg-[#007AFF] hover:bg-[#0063CC] active:bg-[#004EA3]'"
+                class="text-xs font-medium px-3 py-1 rounded-lg text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm">
                 {{ $isNewApp ? 'Create Application' : 'Save Application' }}
             </button>
         </div>
@@ -284,7 +292,10 @@ new class extends Component {
                                 <button type="button"
                                     wire:click="saveService({{ $index }})"
                                     @if(empty($svc['name']) || empty($svc['command'])) disabled @endif
-                                    class="w-6 h-6 flex items-center justify-center rounded-full bg-[#007AFF]/90 text-white hover:bg-[#0063CC] disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm"
+                                    x-data="{ flashed: false }"
+                                    @click="if (!$el.disabled) { flashed = true; setTimeout(() => flashed = false, 700) }"
+                                    :class="flashed ? 'bg-green-500 hover:bg-green-500' : 'bg-[#007AFF]/90 hover:bg-[#0063CC]'"
+                                    class="w-6 h-6 flex items-center justify-center rounded-full text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm"
                                     title="Save service">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />

@@ -17,7 +17,8 @@ class NativeAppServiceProvider implements ProvidesPhpIni
             ->width(600)
             ->height(600)
             ->blendBackgroundBehindWindow()
-            ->resizable(false);
+            ->alwaysOnTop()
+            ->resizable();
 
         app(ServiceManager::class)->startAutoStartServices();
     }

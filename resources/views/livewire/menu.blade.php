@@ -79,6 +79,30 @@ new class extends Component {
         app(ServiceManager::class)->restart($service);
     }
 
+    public function startAll(int $appId) {
+        $manager = app(ServiceManager::class);
+        $app = Application::with('services')->findOrFail($appId);
+        foreach ($app->services as $service) {
+            $manager->start($service);
+        }
+    }
+
+    public function stopAll(int $appId) {
+        $manager = app(ServiceManager::class);
+        $app = Application::with('services')->findOrFail($appId);
+        foreach ($app->services as $service) {
+            $manager->stop($service);
+        }
+    }
+
+    public function restartAll(int $appId) {
+        $manager = app(ServiceManager::class);
+        $app = Application::with('services')->findOrFail($appId);
+        foreach ($app->services as $service) {
+            $manager->restart($service);
+        }
+    }
+
     public function viewLog(int $serviceId) {
         $service = Service::findOrFail($serviceId);
         Window::open("log-{$service->id}")
@@ -198,8 +222,55 @@ new class extends Component {
                             </button>
                         @endif
 
-                        {{-- Open all logs --}}
                         @if($app->services->isNotEmpty())
+                            {{-- Bulk service controls --}}
+                            <span class="w-px h-4 bg-gray-300/60 dark:bg-gray-500/40 mx-0.5"></span>
+
+                            {{-- Start all --}}
+                            <button wire:click="startAll({{ $app->id }})"
+                                x-data="{ flashed: false }"
+                                @click="flashed = true; setTimeout(() => flashed = false, 700)"
+                                :class="flashed
+                                    ? 'bg-green-500 text-white border-green-500 dark:bg-green-500 dark:border-green-500'
+                                    : 'bg-green-50 text-green-600 hover:bg-green-100 border-green-200 dark:bg-green-500/10 dark:border-green-500/30 dark:hover:bg-green-500/20'"
+                                class="w-6 h-6 flex items-center justify-center rounded-full border transition-colors duration-200"
+                                title="Start all services">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
+                                    <path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.891a1.5 1.5 0 0 0 0-2.538L6.3 2.841Z" />
+                                </svg>
+                            </button>
+
+                            {{-- Restart all --}}
+                            <button wire:click="restartAll({{ $app->id }})"
+                                x-data="{ flashed: false }"
+                                @click="flashed = true; setTimeout(() => flashed = false, 700)"
+                                :class="flashed
+                                    ? 'bg-blue-500 text-white border-blue-500 dark:bg-blue-500 dark:border-blue-500'
+                                    : 'bg-blue-50 text-blue-500 hover:bg-blue-100 border-blue-200 dark:bg-blue-500/10 dark:border-blue-500/30 dark:hover:bg-blue-500/20'"
+                                class="w-6 h-6 flex items-center justify-center rounded-full border transition-colors duration-200"
+                                title="Restart all services">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
+                                    <path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H4.598a.75.75 0 0 0-.75.75v3.634a.75.75 0 0 0 1.5 0v-2.033l.312.311a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm-1.262-5.273a7 7 0 0 0-11.712 3.138.75.75 0 0 0 1.449.39 5.5 5.5 0 0 1 9.201-2.466l.312.311H11.867a.75.75 0 0 0 0 1.5h3.634a.75.75 0 0 0 .75-.75V4.64a.75.75 0 0 0-1.5 0v2.033l-.312-.311a6.972 6.972 0 0 0-.389-.211Z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+
+                            {{-- Stop all --}}
+                            <button wire:click="stopAll({{ $app->id }})"
+                                x-data="{ flashed: false }"
+                                @click="flashed = true; setTimeout(() => flashed = false, 700)"
+                                :class="flashed
+                                    ? 'bg-red-500 text-white border-red-500 dark:bg-red-500 dark:border-red-500'
+                                    : 'bg-red-50 text-red-500 hover:bg-red-100 border-red-200 dark:bg-red-500/10 dark:border-red-500/30 dark:hover:bg-red-500/20'"
+                                class="w-6 h-6 flex items-center justify-center rounded-full border transition-colors duration-200"
+                                title="Stop all services">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
+                                    <rect x="5" y="5" width="10" height="10" rx="1" />
+                                </svg>
+                            </button>
+
+                            <span class="w-px h-4 bg-gray-300/60 dark:bg-gray-500/40 mx-0.5"></span>
+
+                            {{-- Open all logs --}}
                             <button wire:click="viewAllLogs({{ $app->id }})"
                                 class="w-6 h-6 flex items-center justify-center rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-500 hover:text-slate-700 hover:border-slate-400 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-400 transition-colors"
                                 title="Open all logs">

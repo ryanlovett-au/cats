@@ -392,13 +392,16 @@ new class extends Component {
             About Cats
         </button>
         <div class="flex items-center gap-2">
-            <button wire:click="closeWindow"
-                class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-slate-800 hover:border-slate-400 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:border-gray-400 shadow-sm transition-colors">
-                Close
-            </button>
             <button wire:click="quit" wire:confirm="All running services will be stopped. Are you sure?"
                 class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-red-500 hover:border-red-300 dark:text-gray-300 dark:hover:text-red-400 dark:hover:border-red-500/50 shadow-sm transition-colors">
                 Quit
+            </button>
+            <button wire:click="closeWindow"
+                class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-slate-800 hover:border-slate-400 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:border-gray-400 shadow-sm transition-colors flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
+                    <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                </svg>
+                Close
             </button>
         </div>
     </div>

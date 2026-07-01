@@ -139,6 +139,10 @@ return [
      */
     'prebuild' => [
         'npm run build',
+        // Ensure a draft GitHub release exists for this version before publishing,
+        // so electron-builder uploads its artifacts into it. Reads the repo from
+        // .env (GITHUB_OWNER/GITHUB_REPO); no-op if publishing isn't configured.
+        'bash scripts/ensure-draft-release.sh',
     ],
 
     'postbuild' => [

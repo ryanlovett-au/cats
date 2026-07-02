@@ -2,9 +2,8 @@
 
 namespace App\Cats;
 
-use Native\Laravel\Facades\Menu;
-
 use App\Models\Application;
+use Native\Desktop\Facades\Menu;
 
 class MainMenu
 {
@@ -29,6 +28,7 @@ class MainMenu
 
             if ($app->services->isEmpty()) {
                 $menu[] = Menu::label('  No services')->disabled();
+
                 continue;
             }
 

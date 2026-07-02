@@ -20,6 +20,7 @@ Built with [Laravel](https://laravel.com), [Livewire](https://livewire.laravel.c
 - PHP 8.2+
 - Composer
 - Node.js & npm
+- macOS 12 (Monterey) or later -- NativePHP v2 ships on Electron 38, which drops support for macOS Catalina (10.15) and Big Sur (11)
 
 ## Getting Started
 
@@ -52,7 +53,7 @@ composer native:dev
 ```
 
 This runs two processes concurrently:
-- `php artisan native:serve` -- the NativePHP/Electron desktop app
+- `php artisan native:run` -- the NativePHP/Electron desktop app
 - `npm run dev` -- Vite dev server for hot-reloading assets
 
 ### Web mode
@@ -93,7 +94,7 @@ php artisan native:build
 
 This produces a platform-specific binary (`.app` on macOS) in the `dist/` directory.
 
-For build configuration, code signing, and distribution options, see the [NativePHP build documentation](https://nativephp.com/docs/1/getting-started/build).
+For build configuration, code signing, and distribution options, see the [NativePHP build documentation](https://nativephp.com/docs/desktop/2/getting-started/build).
 
 ## Project Structure
 

@@ -2,11 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-
-use Native\Laravel\Events\Menu\MenuItemClicked;
-
 use App\Listeners\MenuItemClickedListener;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Native\Desktop\Events\Menu\MenuItemClicked;
 
 class EventServiceProvider extends ServiceProvider
 {

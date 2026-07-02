@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use Native\Laravel\Events\Menu\MenuItemClicked;
-use Native\Laravel\Facades\Window;
-use Native\Laravel\Alert;
-
 use App\Cats\ServiceManager;
 use App\Models\Service;
+use Native\Desktop\Alert;
+use Native\Desktop\Events\Menu\MenuItemClicked;
+use Native\Desktop\Facades\App;
+use Native\Desktop\Facades\Window;
 
 class MenuItemClickedListener
 {
@@ -32,8 +32,9 @@ class MenuItemClickedListener
                 foreach ($services as $service) {
                     $this->manager->stop($service);
                 }
-                \Native\Laravel\Facades\App::quit();
+                App::quit();
             }
+
             return;
         }
 
@@ -42,6 +43,7 @@ class MenuItemClickedListener
                 ->route('applications')
                 ->title('Cats')
                 ->rememberState();
+
             return;
         }
 
@@ -49,7 +51,7 @@ class MenuItemClickedListener
             $action = $matches[1];
             $service = Service::with('application')->find($matches[2]);
 
-            if (!$service) {
+            if (! $service) {
                 return;
             }
 

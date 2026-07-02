@@ -2,8 +2,8 @@
 
 use Livewire\Volt\Component;
 
-use Native\Laravel\Dialog;
-use Native\Laravel\Facades\Window;
+use Native\Desktop\Dialog;
+use Native\Desktop\Facades\Window;
 
 use App\Models\Application;
 use App\Models\Service;

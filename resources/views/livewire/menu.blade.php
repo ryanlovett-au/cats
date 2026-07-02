@@ -6,10 +6,10 @@ use Illuminate\Support\Collection;
 use App\Cats\ServiceManager;
 use App\Models\Application;
 use App\Models\Service;
-use Native\Laravel\Client\Client;
-use Native\Laravel\Facades\MenuBar;
-use Native\Laravel\Facades\Shell;
-use Native\Laravel\Facades\Window;
+use Native\Desktop\Client\Client;
+use Native\Desktop\Facades\MenuBar;
+use Native\Desktop\Facades\Shell;
+use Native\Desktop\Facades\Window;
 
 new class extends Component {
 
@@ -161,7 +161,7 @@ new class extends Component {
         foreach ($services as $service) {
             app(ServiceManager::class)->stop($service);
         }
-        \Native\Laravel\Facades\App::quit();
+        \Native\Desktop\Facades\App::quit();
     }
 };
 

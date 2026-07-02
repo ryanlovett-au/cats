@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\NativeAppServiceProvider;
+
 return [
     /**
      * The version of your app.
@@ -37,11 +39,21 @@ return [
     'copyright' => env('NATIVEPHP_APP_COPYRIGHT', '&copy; Ryan Lovett'),
 
     /**
+     * The description of your application.
+     */
+    'description' => env('NATIVEPHP_APP_DESCRIPTION', 'As in "Herding Cats" -- built to be used with Laravel Herd. A native macOS menu bar application for managing background services across your development projects. Stop juggling terminal windows -- start, stop, and monitor all your dev services from one place.'),
+
+    /**
+     * The website of your application.
+     */
+    'website' => env('NATIVEPHP_APP_WEBSITE', 'https://github.com/ryanlovett-au/cats'),
+
+    /**
      * The default service provider for your application. This provider
      * takes care of bootstrapping your application and configuring
      * any global hotkeys, menus, windows, etc.
      */
-    'provider' => \App\Providers\NativeAppServiceProvider::class,
+    'provider' => NativeAppServiceProvider::class,
 
     /**
      * A list of environment keys that should be removed from the

@@ -3,7 +3,7 @@
 namespace App\Cats;
 
 use App\Models\Service;
-use Native\Laravel\Facades\ChildProcess;
+use Native\Desktop\Facades\ChildProcess;
 
 class ServiceManager
 {
@@ -23,12 +23,12 @@ class ServiceManager
         $logPath = $this->logPath($service);
         $logDir = dirname($logPath);
 
-        if (!is_dir($logDir)) {
+        if (! is_dir($logDir)) {
             mkdir($logDir, 0755, true);
         }
 
         $escaped = addcslashes($service->command, "'");
-        $cmd = "exec {$escaped} >> " . escapeshellarg($logPath) . " 2>&1";
+        $cmd = "exec {$escaped} >> ".escapeshellarg($logPath).' 2>&1';
 
         ChildProcess::start(
             cmd: ['sh', '-c', $cmd],
@@ -77,7 +77,7 @@ class ServiceManager
         $home = getenv('HOME') ?: posix_getpwuid(posix_getuid())['dir'];
 
         // Find Herd's NVM node bin (npm, node, npx live here)
-        $herdNvmBase = $home . '/Library/Application Support/Herd/config/nvm/versions/node';
+        $herdNvmBase = $home.'/Library/Application Support/Herd/config/nvm/versions/node';
         $herdNodeBin = null;
         if (is_dir($herdNvmBase)) {
             $versions = @scandir($herdNvmBase, SCANDIR_SORT_DESCENDING);
@@ -93,10 +93,10 @@ class ServiceManager
             '/opt/homebrew/bin',
             '/opt/homebrew/sbin',
             '/usr/local/bin',
-            $home . '/Library/Application Support/Herd/bin',
+            $home.'/Library/Application Support/Herd/bin',
             $herdNodeBin,
-            $home . '/.config/herd-lite/bin',
-            $home . '/.composer/vendor/bin',
+            $home.'/.config/herd-lite/bin',
+            $home.'/.composer/vendor/bin',
         ]), 'is_dir');
 
         $currentPath = getenv('PATH') ?: '/usr/bin:/bin:/usr/sbin:/sbin';

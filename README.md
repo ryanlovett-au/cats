@@ -92,7 +92,7 @@ NativePHP uses Electron under the hood. To package the app as a distributable bi
 php artisan native:build
 ```
 
-This produces a platform-specific binary (`.app` on macOS) in the `dist/` directory.
+This produces a platform-specific binary (`.app` on macOS) in the `nativephp/electron/dist/` directory.
 
 For build configuration, code signing, and distribution options, see the [NativePHP build documentation](https://nativephp.com/docs/desktop/2/getting-started/build).
 

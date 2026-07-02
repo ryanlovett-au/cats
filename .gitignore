@@ -21,6 +21,9 @@ Homestead.json
 
 /dist/
 
+# NativePHP v2 Electron project + build output
+/nativephp/
+
 public/build/assets/
 
 public/build/

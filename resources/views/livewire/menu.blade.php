@@ -7,11 +7,25 @@ use App\Cats\ServiceManager;
 use App\Models\Application;
 use App\Models\Service;
 use Native\Desktop\Client\Client;
+use Native\Desktop\Facades\App;
 use Native\Desktop\Facades\MenuBar;
 use Native\Desktop\Facades\Shell;
 use Native\Desktop\Facades\Window;
 
 new class extends Component {
+
+    public string $version = '';
+
+    public function mount(): void {
+        // App::version() is the true running binary version; fall back to
+        // config (from NATIVEPHP_APP_VERSION) when the Electron API isn't
+        // reachable, e.g. running in the browser during development.
+        try {
+            $this->version = App::version();
+        } catch (\Throwable) {
+            $this->version = (string) config('nativephp.version');
+        }
+    }
 
     public function getAppsProperty(): Collection {
         return Application::orderBy('sort_order')->orderBy('name')->with('services')->get();
@@ -161,7 +175,7 @@ new class extends Component {
         foreach ($services as $service) {
             app(ServiceManager::class)->stop($service);
         }
-        \Native\Desktop\Facades\App::quit();
+        App::quit();
     }
 };
 
@@ -387,10 +401,15 @@ new class extends Component {
 
     {{-- Bottom bar (pinned) --}}
     <div class="flex items-center justify-between pt-3 mt-auto flex-shrink-0 border-t border-gray-400/30 dark:border-gray-400/20">
-        <button wire:click="openAbout"
-            class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-slate-800 hover:border-slate-400 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:border-gray-400 shadow-sm transition-colors">
-            About Cats
-        </button>
+        <div class="flex items-center gap-2">
+            <button wire:click="openAbout"
+                class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-slate-800 hover:border-slate-400 dark:text-gray-300 dark:hover:text-gray-100 dark:hover:border-gray-400 shadow-sm transition-colors">
+                About Cats
+            </button>
+            @if($version !== '')
+                <span class="text-[10px] text-slate-400 dark:text-gray-500 tabular-nums" title="Cats version">v{{ $version }}</span>
+            @endif
+        </div>
         <div class="flex items-center gap-2">
             <button wire:click="quit" wire:confirm="All running services will be stopped. Are you sure?"
                 class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-red-500 hover:border-red-300 dark:text-gray-300 dark:hover:text-red-400 dark:hover:border-red-500/50 shadow-sm transition-colors">

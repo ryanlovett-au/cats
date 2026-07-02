@@ -471,19 +471,24 @@ new class extends Component {
             </button>
         </div>
     </div>
-</div>
 
-@script
-<script>
-    // Persist the popover size after the user finishes resizing, so
-    // NativeAppServiceProvider can restore it on the next launch. Debounced
-    // to avoid a round-trip on every intermediate resize event.
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-            $wire.persistSize(window.innerWidth, window.innerHeight);
-        }, 500);
-    });
-</script>
-@endscript
+    {{-- Persist the popover size after the user finishes resizing, so
+         NativeAppServiceProvider can restore it on the next launch. Debounced
+         to avoid a round-trip on every intermediate resize event. The window
+         guard prevents duplicate listeners across wire:poll re-renders. --}}
+    <script>
+        if (!window.__catsMenuResizeBound) {
+            window.__catsMenuResizeBound = true;
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    const comp = Livewire.all()[0];
+                    if (comp && comp.$wire) {
+                        comp.$wire.persistSize(window.innerWidth, window.innerHeight);
+                    }
+                }, 500);
+            });
+        }
+    </script>
+</div>

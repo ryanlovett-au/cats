@@ -8,7 +8,9 @@ use App\Models\Application;
 use App\Models\Service;
 use Native\Desktop\Client\Client;
 use Native\Desktop\Facades\App;
+use Native\Desktop\Facades\AutoUpdater;
 use Native\Desktop\Facades\MenuBar;
+use Native\Desktop\Facades\Settings;
 use Native\Desktop\Facades\Shell;
 use Native\Desktop\Facades\Window;
 
@@ -29,6 +31,35 @@ new class extends Component {
 
     public function getAppsProperty(): Collection {
         return Application::orderBy('sort_order')->orderBy('name')->with('services')->get();
+    }
+
+    // Version of a downloaded-but-not-installed update, recorded by
+    // UpdateDownloadedListener. Empty when none is pending or it already
+    // matches the running version (e.g. right after installing). Read each
+    // poll so the button appears as soon as a download finishes.
+    public function getPendingUpdateProperty(): string {
+        try {
+            $pending = (string) Settings::get('pending_update_version');
+        } catch (\Throwable) {
+            return '';
+        }
+
+        return ($pending !== '' && $pending !== $this->version) ? $pending : '';
+    }
+
+    // Persist the popover size (from the renderer resize listener) so it can
+    // be restored on next launch. See NativeAppServiceProvider::persistedSize().
+    public function persistSize(int $width, int $height): void {
+        if ($width < 1 || $height < 1) {
+            return;
+        }
+
+        try {
+            Settings::set('menubar_width', $width);
+            Settings::set('menubar_height', $height);
+        } catch (\Throwable) {
+            // Settings API unavailable (e.g. in-browser dev); ignore.
+        }
     }
 
     public function moveUp(int $id) {
@@ -170,12 +201,21 @@ new class extends Component {
         app(Client::class)->post('menu-bar/hide');
     }
 
-    public function quit() {
+    protected function stopAllServices(): void {
         $services = Service::with('application')->get();
         foreach ($services as $service) {
             app(ServiceManager::class)->stop($service);
         }
+    }
+
+    public function quit() {
+        $this->stopAllServices();
         App::quit();
+    }
+
+    public function quitAndInstall() {
+        $this->stopAllServices();
+        AutoUpdater::quitAndInstall();
     }
 };
 
@@ -411,6 +451,13 @@ new class extends Component {
             @endif
         </div>
         <div class="flex items-center gap-2">
+            @if($this->pendingUpdate !== '')
+                <button wire:click="quitAndInstall" wire:confirm="All running services will be stopped. Are you sure?"
+                    class="text-xs font-medium px-2.5 py-1 rounded-md bg-[#007AFF] text-white hover:bg-[#0063CC] active:bg-[#004EA3] shadow-sm transition-colors"
+                    title="Install v{{ $this->pendingUpdate }} and restart">
+                    Quit &amp; Install
+                </button>
+            @endif
             <button wire:click="quit" wire:confirm="All running services will be stopped. Are you sure?"
                 class="text-xs font-medium px-2.5 py-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-600 hover:text-red-500 hover:border-red-300 dark:text-gray-300 dark:hover:text-red-400 dark:hover:border-red-500/50 shadow-sm transition-colors">
                 Quit
@@ -425,3 +472,18 @@ new class extends Component {
         </div>
     </div>
 </div>
+
+@script
+<script>
+    // Persist the popover size after the user finishes resizing, so
+    // NativeAppServiceProvider can restore it on the next launch. Debounced
+    // to avoid a round-trip on every intermediate resize event.
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            $wire.persistSize(window.innerWidth, window.innerHeight);
+        }, 500);
+    });
+</script>
+@endscript

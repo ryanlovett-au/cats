@@ -453,9 +453,9 @@ new class extends Component {
         <div class="flex items-center gap-2">
             @if($this->pendingUpdate !== '')
                 <button wire:click="quitAndInstall" wire:confirm="All running services will be stopped. Are you sure?"
-                    class="text-xs font-medium px-2.5 py-1 rounded-md bg-[#007AFF] text-white hover:bg-[#0063CC] active:bg-[#004EA3] shadow-sm transition-colors"
+                    class="text-xs font-medium px-2.5 py-1 rounded-md border border-transparent bg-[#007AFF] text-white hover:bg-[#0063CC] active:bg-[#004EA3] shadow-sm transition-colors"
                     title="Install v{{ $this->pendingUpdate }} and restart">
-                    Quit &amp; Install
+                    Quit &amp; Install Update
                 </button>
             @endif
             <button wire:click="quit" wire:confirm="All running services will be stopped. Are you sure?"

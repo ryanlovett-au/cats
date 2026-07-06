@@ -258,7 +258,7 @@ new class extends Component {
                         @if(!$loop->first)
                             <button wire:click="moveUp({{ $app->id }})"
                                 class="w-5 h-5 flex items-center justify-center rounded text-slate-400 hover:text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
-                                title="Move up">
+                                data-tooltip="Move up">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3">
                                     <path fill-rule="evenodd" d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06 5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06Z" clip-rule="evenodd" />
                                 </svg>
@@ -269,7 +269,7 @@ new class extends Component {
                         @if(!$loop->last)
                             <button wire:click="moveDown({{ $app->id }})"
                                 class="w-5 h-5 flex items-center justify-center rounded text-slate-400 hover:text-slate-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
-                                title="Move down">
+                                data-tooltip="Move down">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3">
                                     <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
                                 </svg>
@@ -288,7 +288,7 @@ new class extends Component {
                                     ? 'bg-green-500 text-white border-green-500 dark:bg-green-500 dark:border-green-500'
                                     : 'bg-green-50 text-green-600 hover:bg-green-100 border-green-200 dark:bg-green-500/10 dark:border-green-500/30 dark:hover:bg-green-500/20'"
                                 class="w-6 h-6 flex items-center justify-center rounded-full border transition-colors duration-200"
-                                title="Start all services">
+                                data-tooltip="Start all services">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                     <path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.891a1.5 1.5 0 0 0 0-2.538L6.3 2.841Z" />
                                 </svg>
@@ -302,7 +302,7 @@ new class extends Component {
                                     ? 'bg-blue-500 text-white border-blue-500 dark:bg-blue-500 dark:border-blue-500'
                                     : 'bg-blue-50 text-blue-500 hover:bg-blue-100 border-blue-200 dark:bg-blue-500/10 dark:border-blue-500/30 dark:hover:bg-blue-500/20'"
                                 class="w-6 h-6 flex items-center justify-center rounded-full border transition-colors duration-200"
-                                title="Restart all services">
+                                data-tooltip="Restart all services">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                     <path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H4.598a.75.75 0 0 0-.75.75v3.634a.75.75 0 0 0 1.5 0v-2.033l.312.311a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm-1.262-5.273a7 7 0 0 0-11.712 3.138.75.75 0 0 0 1.449.39 5.5 5.5 0 0 1 9.201-2.466l.312.311H11.867a.75.75 0 0 0 0 1.5h3.634a.75.75 0 0 0 .75-.75V4.64a.75.75 0 0 0-1.5 0v2.033l-.312-.311a6.972 6.972 0 0 0-.389-.211Z" clip-rule="evenodd" />
                                 </svg>
@@ -316,7 +316,7 @@ new class extends Component {
                                     ? 'bg-red-500 text-white border-red-500 dark:bg-red-500 dark:border-red-500'
                                     : 'bg-red-50 text-red-500 hover:bg-red-100 border-red-200 dark:bg-red-500/10 dark:border-red-500/30 dark:hover:bg-red-500/20'"
                                 class="w-6 h-6 flex items-center justify-center rounded-full border transition-colors duration-200"
-                                title="Stop all services">
+                                data-tooltip="Stop all services">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                     <rect x="5" y="5" width="10" height="10" rx="1" />
                                 </svg>
@@ -327,7 +327,7 @@ new class extends Component {
                             {{-- Open all logs --}}
                             <button wire:click="viewAllLogs({{ $app->id }})"
                                 class="w-6 h-6 flex items-center justify-center rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-500 hover:text-slate-700 hover:border-slate-400 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-400 transition-colors"
-                                title="Open all logs">
+                                data-tooltip="Open all logs">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                     <path d="M7 3a1 1 0 0 0-1 1v1H4.5A1.5 1.5 0 0 0 3 6.5v9A1.5 1.5 0 0 0 4.5 17h7a1.5 1.5 0 0 0 1.5-1.5V14h1.5a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2H8a1 1 0 0 0-1 1Zm.25 4.5a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75Zm0 3a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5H8a.75.75 0 0 1-.75-.75Z" />
                                 </svg>
@@ -337,7 +337,7 @@ new class extends Component {
                         {{-- Edit --}}
                         <button wire:click="editApplication({{ $app->id }})"
                             class="h-6 px-2 flex items-center gap-1 rounded-md border border-gray-300/60 dark:border-gray-500/50 bg-white/70 dark:bg-white/10 text-slate-500 hover:text-slate-700 hover:border-slate-400 dark:text-gray-400 dark:hover:text-gray-200 dark:hover:border-gray-400 transition-colors"
-                            title="Edit Application">
+                            data-tooltip="Edit Application">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                 <path d="m5.433 13.917 1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z" />
                                 <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z" />
@@ -362,7 +362,7 @@ new class extends Component {
                                 {{-- Status dot + name --}}
                                 <div class="flex items-center gap-2 mb-2">
                                     <span class="w-2 h-2 rounded-full flex-shrink-0 {{ $running ? 'bg-green-400' : 'bg-gray-300 dark:bg-gray-500' }}"></span>
-                                    <span class="text-xs font-medium truncate" title="{{ $service->name }}">{{ $service->name }}</span>
+                                    <span class="text-xs font-medium truncate" data-tooltip="{{ $service->name }}">{{ $service->name }}</span>
                                 </div>
 
                                 {{-- Action buttons --}}
@@ -371,7 +371,7 @@ new class extends Component {
                                         {{-- Stop --}}
                                         <button wire:click="stop({{ $service->id }})"
                                             class="w-6 h-6 flex items-center justify-center rounded-full bg-red-50 text-red-500 hover:bg-red-100 border border-red-200 dark:bg-red-500/10 dark:border-red-500/30 dark:hover:bg-red-500/20 transition-colors"
-                                            title="Stop">
+                                            data-tooltip="Stop">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                                 <rect x="5" y="5" width="10" height="10" rx="1" />
                                             </svg>
@@ -385,7 +385,7 @@ new class extends Component {
                                                 ? 'bg-blue-500 text-white border-blue-500 dark:bg-blue-500 dark:border-blue-500'
                                                 : 'bg-blue-50 text-blue-500 hover:bg-blue-100 border-blue-200 dark:bg-blue-500/10 dark:border-blue-500/30 dark:hover:bg-blue-500/20'"
                                             class="w-6 h-6 flex items-center justify-center rounded-full border transition-colors duration-200"
-                                            title="Restart">
+                                            data-tooltip="Restart">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                                 <path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H4.598a.75.75 0 0 0-.75.75v3.634a.75.75 0 0 0 1.5 0v-2.033l.312.311a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm-1.262-5.273a7 7 0 0 0-11.712 3.138.75.75 0 0 0 1.449.39 5.5 5.5 0 0 1 9.201-2.466l.312.311H11.867a.75.75 0 0 0 0 1.5h3.634a.75.75 0 0 0 .75-.75V4.64a.75.75 0 0 0-1.5 0v2.033l-.312-.311a6.972 6.972 0 0 0-.389-.211Z" clip-rule="evenodd" />
                                             </svg>
@@ -394,7 +394,7 @@ new class extends Component {
                                         {{-- Start --}}
                                         <button wire:click="start({{ $service->id }})"
                                             class="w-6 h-6 flex items-center justify-center rounded-full bg-green-50 text-green-600 hover:bg-green-100 border border-green-200 dark:bg-green-500/10 dark:border-green-500/30 dark:hover:bg-green-500/20 transition-colors"
-                                            title="Start">
+                                            data-tooltip="Start">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                                 <path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.891a1.5 1.5 0 0 0 0-2.538L6.3 2.841Z" />
                                             </svg>
@@ -403,7 +403,7 @@ new class extends Component {
                                         {{-- Restart (disabled) --}}
                                         <button disabled
                                             class="w-6 h-6 flex items-center justify-center rounded-full bg-slate-50 text-slate-300 border border-gray-200 dark:bg-gray-700 dark:text-gray-600 dark:border-gray-600 cursor-not-allowed"
-                                            title="Restart (service not running)">
+                                            data-tooltip="Restart (service not running)">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                                 <path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H4.598a.75.75 0 0 0-.75.75v3.634a.75.75 0 0 0 1.5 0v-2.033l.312.311a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm-1.262-5.273a7 7 0 0 0-11.712 3.138.75.75 0 0 0 1.449.39 5.5 5.5 0 0 1 9.201-2.466l.312.311H11.867a.75.75 0 0 0 0 1.5h3.634a.75.75 0 0 0 .75-.75V4.64a.75.75 0 0 0-1.5 0v2.033l-.312-.311a6.972 6.972 0 0 0-.389-.211Z" clip-rule="evenodd" />
                                             </svg>
@@ -413,7 +413,7 @@ new class extends Component {
                                     {{-- View Log --}}
                                     <button wire:click="viewLog({{ $service->id }})"
                                         class="w-6 h-6 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 border border-gray-200 dark:bg-gray-600 dark:text-gray-300 dark:border-gray-500 dark:hover:bg-gray-500 transition-colors"
-                                        title="View Log">
+                                        data-tooltip="View Log">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                                             <path fill-rule="evenodd" d="M4.5 2A1.5 1.5 0 0 0 3 3.5v13A1.5 1.5 0 0 0 4.5 18h11a1.5 1.5 0 0 0 1.5-1.5V7.621a1.5 1.5 0 0 0-.44-1.06l-4.12-4.122A1.5 1.5 0 0 0 11.378 2H4.5Zm2.25 8.5a.75.75 0 0 0 0 1.5h6.5a.75.75 0 0 0 0-1.5h-6.5Zm0 3a.75.75 0 0 0 0 1.5h6.5a.75.75 0 0 0 0-1.5h-6.5Z" clip-rule="evenodd" />
                                         </svg>
@@ -448,14 +448,14 @@ new class extends Component {
                 About Cats
             </button>
             @if($version !== '')
-                <span class="text-[10px] text-slate-400 dark:text-gray-500 tabular-nums" title="Cats version">v{{ $version }}</span>
+                <span class="text-[10px] text-slate-400 dark:text-gray-500 tabular-nums" data-tooltip="Cats version">v{{ $version }}</span>
             @endif
         </div>
         <div class="flex items-center gap-2">
             @if($this->pendingUpdate !== '')
                 <button wire:click="quitAndInstall" wire:confirm="All running services will be stopped. Are you sure?"
                     class="text-xs font-medium px-2.5 py-1 rounded-md border border-transparent bg-[#007AFF] text-white hover:bg-[#0063CC] active:bg-[#004EA3] shadow-sm transition-colors"
-                    title="Install v{{ $this->pendingUpdate }} and restart">
+                    data-tooltip="Install v{{ $this->pendingUpdate }} and restart">
                     Quit &amp; Install Update
                 </button>
             @endif

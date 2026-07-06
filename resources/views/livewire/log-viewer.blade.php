@@ -81,7 +81,7 @@ new class extends Component {
                 {{-- Stop --}}
                 <button wire:click="stop"
                     class="w-6 h-6 flex items-center justify-center rounded-full bg-red-50 text-red-500 hover:bg-red-100 border border-red-200 transition-colors"
-                    title="Stop">
+                    data-tooltip="Stop">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                         <rect x="5" y="5" width="10" height="10" rx="1" />
                     </svg>
@@ -90,7 +90,7 @@ new class extends Component {
                 {{-- Restart --}}
                 <button wire:click="restart"
                     class="w-6 h-6 flex items-center justify-center rounded-full bg-blue-50 text-blue-500 hover:bg-blue-100 border border-blue-200 transition-colors"
-                    title="Restart">
+                    data-tooltip="Restart">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                         <path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H4.598a.75.75 0 0 0-.75.75v3.634a.75.75 0 0 0 1.5 0v-2.033l.312.311a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm-1.262-5.273a7 7 0 0 0-11.712 3.138.75.75 0 0 0 1.449.39 5.5 5.5 0 0 1 9.201-2.466l.312.311H11.867a.75.75 0 0 0 0 1.5h3.634a.75.75 0 0 0 .75-.75V4.64a.75.75 0 0 0-1.5 0v2.033l-.312-.311a6.972 6.972 0 0 0-.389-.211Z" clip-rule="evenodd" />
                     </svg>
@@ -99,7 +99,7 @@ new class extends Component {
                 {{-- Start --}}
                 <button wire:click="start"
                     class="w-6 h-6 flex items-center justify-center rounded-full bg-green-50 text-green-600 hover:bg-green-100 border border-green-200 transition-colors"
-                    title="Start">
+                    data-tooltip="Start">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                         <path d="M6.3 2.84A1.5 1.5 0 0 0 4 4.11v11.78a1.5 1.5 0 0 0 2.3 1.27l9.344-5.891a1.5 1.5 0 0 0 0-2.538L6.3 2.841Z" />
                     </svg>
@@ -108,7 +108,7 @@ new class extends Component {
                 {{-- Restart (disabled) --}}
                 <button disabled
                     class="w-6 h-6 flex items-center justify-center rounded-full bg-slate-50 text-slate-300 border border-gray-200 cursor-not-allowed"
-                    title="Restart (service not running)">
+                    data-tooltip="Restart (service not running)">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                         <path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 0 1-9.201 2.466l-.312-.311h2.433a.75.75 0 0 0 0-1.5H4.598a.75.75 0 0 0-.75.75v3.634a.75.75 0 0 0 1.5 0v-2.033l.312.311a7 7 0 0 0 11.712-3.138.75.75 0 0 0-1.449-.39Zm-1.262-5.273a7 7 0 0 0-11.712 3.138.75.75 0 0 0 1.449.39 5.5 5.5 0 0 1 9.201-2.466l.312.311H11.867a.75.75 0 0 0 0 1.5h3.634a.75.75 0 0 0 .75-.75V4.64a.75.75 0 0 0-1.5 0v2.033l-.312-.311a6.972 6.972 0 0 0-.389-.211Z" clip-rule="evenodd" />
                     </svg>
@@ -118,7 +118,7 @@ new class extends Component {
             {{-- Clear Log --}}
             <button wire:click="clearLog"
                 class="w-6 h-6 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 border border-gray-200 transition-colors"
-                title="Clear Log">
+                data-tooltip="Clear Log">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
                     <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z" clip-rule="evenodd" />
                 </svg>

@@ -178,4 +178,4 @@ scripts/ensure-draft-release.sh   # Draft-release helper for builds
 
 ## License
 
-MIT
+[GNU General Public License v3.0](LICENSE.md)

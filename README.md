@@ -10,15 +10,15 @@ Built with [Laravel](https://laravel.com), [Livewire](https://livewire.laravel.c
 
 **Menu bar** -- start, stop, and monitor every service, grouped by application.
 
-![Menu bar popover listing applications and services](docs/screenshot-menu.png)
+<img src="docs/screenshot-menu.png" alt="Menu bar popover listing applications and services" width="480">
 
 **Edit application** -- name a project, pick its folder, and define its services.
 
-![Edit Application window with services and auto-start options](docs/screenshot-edit-application.png)
+<img src="docs/screenshot-edit-application.png" alt="Edit Application window with services and auto-start options" width="420">
 
 **Live logs** -- tail each service's output in real time with ANSI colour.
 
-![Live log viewer showing real-time service output](docs/screenshot-log-viewer.png)
+<img src="docs/screenshot-log-viewer.png" alt="Live log viewer showing real-time service output" width="640">
 
 ## Features
 
